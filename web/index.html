@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attente du passage d'une carte</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function checkPresence() {
+            // Simulation de la récupération des données via un serveur ou une API.
+            fetch("data.json") // Charge le fichier JSON ou une API (remplacer avec le bon chemin)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.read_db.presence === true) {
+                        window.location.href = "read.html"; // Redirige vers read.html
+                    } else if (data.write_db.presence === true) {
+                        window.location.href = "write.html"; // Redirige vers write.html
+                    }
+                })
+                .catch(err => console.error("Erreur lors de la récupération des données : ", err));
+        }
+
+        // Vérifie la présence toutes les 500 ms
+        setInterval(checkPresence, 500);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Attente du passage d'une carte</h1>
+        <p>Veuillez patienter...</p>
+    </div>
+</body>
+</html>
