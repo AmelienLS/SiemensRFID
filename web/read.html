@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Données de la DB6</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function loadData() {
+            // Charger les données depuis le fichier JSON ou une API
+            fetch("data.json")
+                .then(response => response.json())
+                .then(data => {
+                    // Vérifie si la présence est toujours à true
+                    if (!data.read_db.presence) {
+                        window.location.href = "index.html"; // Retour à la page d'attente
+                        return;
+                    }
+
+                    const tableBody = document.getElementById("data-body");
+                    tableBody.innerHTML = ""; // Vide le tableau avant d'ajouter les nouvelles lignes
+
+                    // Ajoute les données de "IdentData" dans le tableau
+                    data.read_db.data.forEach((value, index) => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${index}</td>
+                            <td>${value}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+
+                    // Met à jour les informations générales de DB6
+                    document.getElementById("presence").textContent = data.read_db.presence ? "Oui" : "Non";
+                    document.getElementById("busy").textContent = data.read_db.busy ? "Oui" : "Non";
+                    document.getElementById("done").textContent = data.read_db.done ? "Oui" : "Non";
+                    document.getElementById("error").textContent = data.read_db.error ? "Oui" : "Non";
+                })
+                .catch(err => console.error("Erreur lors de la récupération des données : ", err));
+        }
+
+        // Vérifie périodiquement les données
+        function startPolling() {
+            setInterval(loadData, 500); // Rafraîchit toutes les 500 ms
+        }
+
+        // Lancer la vérification après le chargement de la page
+        document.addEventListener("DOMContentLoaded", startPolling);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Données de la DB6</h1>
+
+        <table class="info-table">
+            <tr>
+                <th>Présence</th>
+                <td id="presence">--</td>
+            </tr>
+            <tr>
+                <th>Occupation</th>
+                <td id="busy">--</td>
+            </tr>
+            <tr>
+                <th>Terminé</th>
+                <td id="done">--</td>
+            </tr>
+            <tr>
+                <th>Erreur</th>
+                <td id="error">--</td>
+            </tr>
+        </table>
+
+        <h2>Données "IdentData"</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Index</th>
+                    <th>Valeur</th>
+                </tr>
+            </thead>
+            <tbody id="data-body">
+                <!-- Les lignes seront ajoutées ici via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
