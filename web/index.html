@@ -3,31 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attente du passage d'une carte</title>
-    <link rel="stylesheet" href="styles.css">
-    <script>
-        function checkPresence() {
-            // Simulation de la récupération des données via un serveur ou une API.
-            fetch("data.json") // Charge le fichier JSON ou une API (remplacer avec le bon chemin)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.read_db.presence === true) {
-                        window.location.href = "read.html"; // Redirige vers read.html
-                    } else if (data.write_db.presence === true) {
-                        window.location.href = "write.html"; // Redirige vers write.html
-                    }
-                })
-                .catch(err => console.error("Erreur lors de la récupération des données : ", err));
+    <title>Tableau Carte Lue</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #191B2A;
+            color: #feed00;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-
-        // Vérifie la présence toutes les 500 ms
-        setInterval(checkPresence, 500);
-    </script>
+        .container {
+            background: #2A2D46;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            border: 1px solid #feed00;
+            padding: 10px;
+            text-align: center;
+        }
+        table th {
+            background-color: #191B2A;
+            color: #feed00;
+        }
+        table tr:nth-child(even) {
+            background-color: #2A2D46;
+        }
+        table tr:nth-child(odd) {
+            background-color: #191B2A;
+        }
+        button {
+            background-color: #feed00;
+            color: #191B2A;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #ffd700;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Attente du passage d'une carte</h1>
-        <p>Veuillez patienter...</p>
+        <h1>Carte Lue et Modification</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Index</th>
+                    <th>Valeur Lue</th>
+                    <th>Modifier Valeur</th>
+                </tr>
+            </thead>
+            <tbody id="data-table">
+                <!-- Les données seront ajoutées ici via JavaScript -->
+            </tbody>
+        </table>
+        <button onclick="submitChanges()">Soumettre les Modifications</button>
     </div>
+
+    <script>
+        // Exemple de données initiales
+        const data = {
+            read: [10, 20, 30, 40, 50],
+        };
+
+        // Fonction pour charger les données dans le tableau
+        function loadTable() {
+            const tableBody = document.getElementById('data-table');
+            tableBody.innerHTML = ''; // Effacer les lignes existantes
+            data.read.forEach((value, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index}</td>
+                    <td>${value}</td>
+                    <td><input type="number" value="${value}" id="input-${index}"></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Fonction pour soumettre les modifications
+        function submitChanges() {
+            const newData = [];
+            data.read.forEach((_, index) => {
+                const input = document.getElementById(`input-${index}`);
+                if (input) {
+                    newData.push(Number(input.value)); // Collecter les nouvelles valeurs
+                }
+            });
+
+            // Afficher les nouvelles valeurs dans la console (ou envoyer à un automate)
+            console.log('Nouvelles données soumises :', newData);
+
+            // Simuler l'enregistrement des nouvelles données
+            data.read = newData;
+            alert('Les modifications ont été enregistrées.');
+            loadTable(); // Recharger les données
+        }
+
+        // Charger le tableau initialement
+        document.addEventListener('DOMContentLoaded', loadTable);
+    </script>
 </body>
 </html>
