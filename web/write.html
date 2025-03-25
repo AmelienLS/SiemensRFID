@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Envoyer des données avec AJAX</title>
+  <script>
+    function envoyerDonneesAjax() {
+      // Récupération du texte et transformation en tableau de 82 codes ASCII
+      const texte = document.getElementById("inputTexte").value;
+      const caracteres = texte.split('');
+      let tableauEcriture = [];
+      for (let i = 0; i < 82; i++) {
+        tableauEcriture[i] = (i < caracteres.length) ? caracteres[i].charCodeAt(0) : 32;
+      }
+      
+      // Préparation des données à envoyer sous forme de FormData
+      const formData = new FormData();
+      for (let i = 0; i < 82; i++) {
+        // Le nom doit correspondre à la variable API attendue
+        formData.append(`"IdentData2".writeData[${i}]`, tableauEcriture[i]);
+      }
+      
+      // Envoi de la requête POST en arrière-plan vers l'URL dédiée
+      fetch('/awp/appl/x.html', {
+        method: 'POST',
+        body: formData,
+        credentials: 'include' // pour inclure les cookies d'authentification si nécessaire
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log("Données envoyées avec succès.");
+          document.getElementById("resultat").textContent = "Données envoyées avec succès.";
+        } else {
+          console.error("Erreur lors de l'envoi des données.");
+          document.getElementById("resultat").textContent = "Erreur lors de l'envoi des données.";
+        }
+      })
+      .catch(error => {
+        console.error("Erreur AJAX:", error);
+        document.getElementById("resultat").textContent = "Erreur AJAX : " + error;
+      });
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Envoyer des données avec AJAX</h1>
+    <textarea id="inputTexte" rows="4" cols="50" placeholder="Tapez votre texte ici"></textarea>
+    <br>
+    <button type="button" onclick="envoyerDonneesAjax()">Envoyer via AJAX</button>
+    <p id="resultat"></p>
+    <button type="button" onclick="window.location.href='index.html'">Aller à index.html</button>
+  </div>
+</body>
+</html>

@@ -1,122 +1,253 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau Carte Lue</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #191B2A;
-            color: #feed00;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background: #2A2D46;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        table th, table td {
-            border: 1px solid #feed00;
-            padding: 10px;
-            text-align: center;
-        }
-        table th {
-            background-color: #191B2A;
-            color: #feed00;
-        }
-        table tr:nth-child(even) {
-            background-color: #2A2D46;
-        }
-        table tr:nth-child(odd) {
-            background-color: #191B2A;
-        }
-        button {
-            background-color: #feed00;
-            color: #191B2A;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        button:hover {
-            background-color: #ffd700;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Actualisation de la page toutes les 0,5 secondes -->
+  <meta http-equiv="refresh" content="0.5">
+  <title>Lecture des données de l'automate Siemens</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Fonction pour convertir une valeur décimale en caractère ASCII
+    function decimalEnCaractere(decimal) {
+      return String.fromCharCode(decimal);
+    }
+
+    // Fonction pour récupérer et afficher la chaîne de caractères construite à partir de IdentData.readData
+    function afficherIdentData() {
+      // On suppose que les valeurs d'IdentData.readData sont injectées par les balises AWP
+      const IdentData = {
+        readData: [
+          :=IdentData.readData[0]:,
+          :=IdentData.readData[1]:,
+          :=IdentData.readData[2]:,
+          :=IdentData.readData[3]:,
+          :=IdentData.readData[4]:,
+          :=IdentData.readData[5]:,
+          :=IdentData.readData[6]:,
+          :=IdentData.readData[7]:,
+          :=IdentData.readData[8]:,
+          :=IdentData.readData[9]:,
+          :=IdentData.readData[10]:,
+          :=IdentData.readData[11]:,
+          :=IdentData.readData[12]:,
+          :=IdentData.readData[13]:,
+          :=IdentData.readData[14]:,
+          :=IdentData.readData[15]:,
+          :=IdentData.readData[16]:,
+          :=IdentData.readData[17]:,
+          :=IdentData.readData[18]:,
+          :=IdentData.readData[19]:,
+          :=IdentData.readData[20]:,
+          :=IdentData.readData[21]:,
+          :=IdentData.readData[22]:,
+          :=IdentData.readData[23]:,
+          :=IdentData.readData[24]:,
+          :=IdentData.readData[25]:,
+          :=IdentData.readData[26]:,
+          :=IdentData.readData[27]:,
+          :=IdentData.readData[28]:,
+          :=IdentData.readData[29]:,
+          :=IdentData.readData[30]:,
+          :=IdentData.readData[31]:,
+          :=IdentData.readData[32]:,
+          :=IdentData.readData[33]:,
+          :=IdentData.readData[34]:,
+          :=IdentData.readData[35]:,
+          :=IdentData.readData[36]:,
+          :=IdentData.readData[37]:,
+          :=IdentData.readData[38]:,
+          :=IdentData.readData[39]:,
+          :=IdentData.readData[40]:,
+          :=IdentData.readData[41]:,
+          :=IdentData.readData[42]:,
+          :=IdentData.readData[43]:,
+          :=IdentData.readData[44]:,
+          :=IdentData.readData[45]:,
+          :=IdentData.readData[46]:,
+          :=IdentData.readData[47]:,
+          :=IdentData.readData[48]:,
+          :=IdentData.readData[49]:,
+          :=IdentData.readData[50]:,
+          :=IdentData.readData[51]:,
+          :=IdentData.readData[52]:,
+          :=IdentData.readData[53]:,
+          :=IdentData.readData[54]:,
+          :=IdentData.readData[55]:,
+          :=IdentData.readData[56]:,
+          :=IdentData.readData[57]:,
+          :=IdentData.readData[58]:,
+          :=IdentData.readData[59]:,
+          :=IdentData.readData[60]:,
+          :=IdentData.readData[61]:,
+          :=IdentData.readData[62]:,
+          :=IdentData.readData[63]:,
+          :=IdentData.readData[64]:,
+          :=IdentData.readData[65]:,
+          :=IdentData.readData[66]:,
+          :=IdentData.readData[67]:,
+          :=IdentData.readData[68]:,
+          :=IdentData.readData[69]:,
+          :=IdentData.readData[70]:,
+          :=IdentData.readData[71]:,
+          :=IdentData.readData[72]:,
+          :=IdentData.readData[73]:,
+          :=IdentData.readData[74]:,
+          :=IdentData.readData[75]:,
+          :=IdentData.readData[76]:,
+          :=IdentData.readData[77]:,
+          :=IdentData.readData[78]:,
+          :=IdentData.readData[79]:,
+          :=IdentData.readData[80]:,
+          :=IdentData.readData[81]:
+        ]
+      };
+
+      // Conversion de chaque valeur décimale en caractère et construction de la chaîne
+      const chaineCaracteres = IdentData.readData.map(decimalEnCaractere).join('');
+      // Affichage de la chaîne dans l'élément ayant l'ID 'affichage'
+    
+      document.getElementById('affichage').textContent = "Nom: " + chaineCaracteres;
+    }
+
+    // Exécution de la fonction après le chargement complet du DOM
+    document.addEventListener('DOMContentLoaded', afficherIdentData);
+  </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Carte Lue et Modification</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Index</th>
-                    <th>Valeur Lue</th>
-                    <th>Modifier Valeur</th>
-                </tr>
-            </thead>
-            <tbody id="data-table">
-                <!-- Les données seront ajoutées ici via JavaScript -->
-            </tbody>
-        </table>
-        <button onclick="submitChanges()">Soumettre les Modifications</button>
-    </div>
+  <!-- Déclaration des variables de l'automate -->
+  <!-- AWP_Out_Variable pour l'état de Read_DB -->
+  <!-- AWP_Out_Variable Name='""Read_DB".PRESENCE"' -->
+  <!-- AWP_Out_Variable Name='""Read_DB".BUSY"' -->
+  <!-- AWP_Out_Variable Name='""Read_DB".DONE"' -->
+  <!-- AWP_Out_Variable Name='""Read_DB".ERROR"' -->
+  <!-- AWP_Out_Variable Name='""Read_DB".STATUS"' -->
 
-    <script>
-        // Exemple de données initiales
-        const data = {
-            read: [10, 20, 30, 40, 50],
-        };
 
-        // Fonction pour charger les données dans le tableau
-        function loadTable() {
-            const tableBody = document.getElementById('data-table');
-            tableBody.innerHTML = ''; // Effacer les lignes existantes
-            data.read.forEach((value, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${index}</td>
-                    <td>${value}</td>
-                    <td><input type="number" value="${value}" id="input-${index}"></td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
+  <!-- AWP_Out_Variable Name='""IdentData".readData[0]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[1]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[2]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[3]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[4]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[5]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[6]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[7]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[8]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[9]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[10]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[11]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[12]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[13]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[14]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[15]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[16]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[17]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[18]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[19]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[20]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[21]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[22]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[23]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[24]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[25]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[26]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[27]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[28]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[29]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[30]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[31]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[32]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[33]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[34]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[35]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[36]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[37]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[38]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[39]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[40]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[41]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[42]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[43]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[44]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[45]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[46]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[47]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[48]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[49]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[50]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[51]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[52]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[53]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[54]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[55]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[56]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[57]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[58]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[59]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[60]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[61]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[62]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[63]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[64]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[65]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[66]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[67]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[68]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[69]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[70]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[71]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[72]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[73]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[74]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[75]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[76]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[77]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[78]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[79]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[80]"' -->
+  <!-- AWP_Out_Variable Name='""IdentData".readData[81]"' -->
 
-        // Fonction pour soumettre les modifications
-        function submitChanges() {
-            const newData = [];
-            data.read.forEach((_, index) => {
-                const input = document.getElementById(`input-${index}`);
-                if (input) {
-                    newData.push(Number(input.value)); // Collecter les nouvelles valeurs
-                }
-            });
+  <div class="container">
+    <h1>Données de l'automate Siemens</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Variable</th>
+          <th>Valeur</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PRESENCE</td>
+          <td>:="Read_DB".PRESENCE:</td>
+        </tr>
+        <tr>
+          <td>BUSY</td>
+          <td>:="Read_DB".BUSY:</td>
+        </tr>
+        <tr>
+          <td>DONE</td>
+          <td>:="Read_DB".DONE:</td>
+        </tr>
+        <tr>
+          <td>ERROR</td>
+          <td>:="Read_DB".ERROR:</td>
+        </tr>
+        <tr>
+          <td>STATUS</td>
+          <td>:="Read_DB".STATUS:</td>
+        </tr>
+      </tbody>
+    </table>
 
-            // Afficher les nouvelles valeurs dans la console (ou envoyer à un automate)
-            console.log('Nouvelles données soumises :', newData);
-
-            // Simuler l'enregistrement des nouvelles données
-            data.read = newData;
-            alert('Les modifications ont été enregistrées.');
-            loadTable(); // Recharger les données
-        }
-
-        // Charger le tableau initialement
-        document.addEventListener('DOMContentLoaded', loadTable);
-    </script>
+    <h2>Données de la carte</h2>
+    <!-- L'élément ci-dessous affichera la chaîne obtenue à partir de IdentData.readData -->
+    <p id="affichage">
+        <span class="label">Nom:</span> 
+        <span class="data"></span>
+      </p>
+ <!-- Bouton de navigation vers la page d'écriture -->
+ <button onclick="window.location.href='write.html'">Passer à la page d'écriture</button>
+  </div>
 </body>
 </html>

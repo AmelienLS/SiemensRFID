@@ -4,6 +4,7 @@ body {
     background-color: #191B2A; /* Arrière-plan sombre */
     color: #feed00; /* Texte jaune */
     display: flex;
+    min-height: 100vh;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -19,7 +20,7 @@ body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Effet d'ombre */
     width: 80%;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0;
 }
 
 /* Titres */
@@ -97,3 +98,15 @@ button:hover {
         font-size: 0.9rem; /* Réduction de la taille de texte sur petits écrans */
     }
 }
+#affichage, #affichage-prenom {
+    margin-bottom: 10px;
+  }
+  
+  .label {
+    font-weight: bold;
+  }
+  
+  .data, .data-prenom {
+    margin-left: 10px;
+    font-style: italic;
+  }
